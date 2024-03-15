@@ -22,7 +22,7 @@ def clean_churn_dataset():
     @task()
     def create_table():
         import sqlalchemy
-        from sqlalchemy import MetaData, Table, Column, Integer, Float, UniqueConstraint, inspect
+        from sqlalchemy import MetaData, Table, Column, Integer, BigInteger, Float, UniqueConstraint, inspect
 
         metadata = MetaData()
         table = Table(
@@ -37,7 +37,7 @@ def clean_churn_dataset():
             Column('is_apartment', Integer),
             Column('studio', Integer),
             Column('total_area', Float),
-            Column('price', Integer),
+            Column('price', BigInteger),
             Column('build_year', Integer),
             Column('building_type_int', Integer),
             Column('latitude', Float),
