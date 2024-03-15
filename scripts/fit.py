@@ -43,7 +43,7 @@ def fit_model():
             ('model', model)
         ]
     )
-    pipeline.fit(data[data.columns.drop(params['target_col'])], data[params['target_col']])
+    pipeline.fit(data, data[params['target_col']])
  
     os.makedirs('models', exist_ok=True)
     with open('models/fitted_model.pkl', 'wb') as fd:
