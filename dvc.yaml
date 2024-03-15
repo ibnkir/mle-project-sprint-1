@@ -28,6 +28,8 @@ stages:
       - n_splits
       - n_jobs
       - metrics
+      - shuffle
+      - random_state
     outs:
       - cv_results/cv_res.json
       

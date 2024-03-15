@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import StratifiedKFold, cross_validate
+from sklearn.model_selection import KFold, cross_validate
 import joblib
 import json
 import yaml
@@ -16,7 +16,11 @@ def evaluate_model():
     with open('models/fitted_model.pkl', 'rb') as fd:
         pipeline = joblib.load(fd)
 
-    cv_strategy = StratifiedKFold(n_splits=params['n_splits'])
+    cv_strategy = KFold(
+        n_splits=params['n_splits'], 
+        shuffle=params['shuffle'],
+        random_state=params['random_state']
+    )
     cv_res = cross_validate(
         pipeline,
         data,

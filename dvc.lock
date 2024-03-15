@@ -1,0 +1,38 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python scripts/data.py
+    deps:
+    - path: scripts/data.py
+      hash: md5
+      md5: 50c53c62d88fdd10d36f02d9da32bf68
+      size: 1112
+    params:
+      params.yaml:
+        index_col: flat_id
+    outs:
+    - path: data/initial_data.csv
+      hash: md5
+      md5: 960bdf8da7192cb914253563fbb9eff3
+      size: 9258172
+  fit_model:
+    cmd: python scripts/fit.py
+    deps:
+    - path: data/initial_data.csv
+      hash: md5
+      md5: 960bdf8da7192cb914253563fbb9eff3
+      size: 9258172
+    - path: scripts/fit.py
+      hash: md5
+      md5: 8f1025e242eaaffe104329b38070180a
+      size: 1753
+    params:
+      params.yaml:
+        max_iter: 4000
+        one_hot_drop: if_binary
+        target_col: target
+    outs:
+    - path: models/fitted_model.pkl
+      hash: md5
+      md5: 92024b4738af641ac6511e6174fa4642
+      size: 4509
