@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 import os
 from dotenv import load_dotenv
 import yaml
+from datetime import datetime
 
 
 def create_connection():
@@ -27,11 +28,21 @@ def get_data():
 
     conn = create_connection()
     data = pd.read_sql('select * from clean_flats_churn', conn, index_col=params['index_col'])
-    data.drop(columns=['id', 'studio', 'latitude', 'longitude', 'price'], inplace=True)
-    conn.dispose()
+    
+    # Вместо build_year добавляем целочисленный признак building_age
+    data['building_age'] = datetime.now().year - data['build_year']
 
+    # Удаляем лишние колонки
+    data.drop(columns=['id', 'build_year', 'studio', 'latitude', 'longitude', 'price'], inplace=True)
+    
+    # Изменяем тип булевских столбцов и building_type_int на object
+    bool_cols = data.select_dtypes('bool').columns
+    data[bool_cols] = data[bool_cols].astype('object')
+    data['building_type_int'] = data['building_type_int'].astype('object')
+    
     os.makedirs('data', exist_ok=True)
     data.to_csv('data/initial_data.csv', index=None)
+    conn.dispose()
 
 
 if __name__ == '__main__':

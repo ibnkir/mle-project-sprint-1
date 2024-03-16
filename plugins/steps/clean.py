@@ -15,12 +15,12 @@ def fill_missing_values(data):
     cols_with_nans = data.isnull().sum()
     cols_with_nans = cols_with_nans[cols_with_nans > 0].index
     
-    # В колонке flat_id не может быть пропусков, т.к. она была индексом в исходной таблице flats
-    # Также сюда не попадают колонки price и target, т.к. ранее мы удалили строки с пустыми ценами
+    # 1. В колонке flat_id не может быть пропусков, т.к. она была индексом в исходной таблице flats
+    # 2. В цикл не попадают колонки price и target, т.к. ранее мы уже удалили строки с пустыми ценами
     for col in cols_with_nans:
         if data[col].dtype in ['float']:
             fill_value = data[col].mean()
-        elif data[col].dtype in ['int', 'object']:
+        elif data[col].dtype in ['int', 'bool', 'object']:
             fill_value = data[col].mode().iloc[0]
         
         data[col].fillna(value=fill_value, inplace=True)
@@ -29,7 +29,9 @@ def fill_missing_values(data):
 
 
 def remove_outliers(data):
-    num_cols = data.select_dtypes(['float']).drop(columns=['target']).columns
+    num_cols = data.select_dtypes(['int', 'float']).drop(
+        columns=['flat_id', 'building_type_int', 'price', 'target']
+    ).columns
     threshold = 1.5
     potential_outliers = pd.DataFrame()
     
