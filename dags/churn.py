@@ -78,8 +78,8 @@ def prepare_churn_dataset():
         # Переименовываем колонку id у квартир на flat_id (т.к. id - это индексная колонка в БД)
         data.rename(columns={'id': 'flat_id'}, inplace=True)
         
-        # Удаляем строки с пустыми ценами
-        data = data[~data['price'].isnull()]
+        # Удаляем строки с пустыми, отрицательными и нулевыми ценами
+        data = data[~(data['price'].isnull() | (data['price'] <= 0))]
         
         # Дабавляем целевой признак target = ln(1 + price)
         data['target'] = np.log1p(data['price'])

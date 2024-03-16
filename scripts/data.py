@@ -27,7 +27,7 @@ def get_data():
 
     conn = create_connection()
     data = pd.read_sql('select * from clean_flats_churn', conn, index_col=params['index_col'])
-    data.drop(columns=['id', 'latitude', 'longitude', 'price'], inplace=True)
+    data.drop(columns=['id', 'studio', 'latitude', 'longitude', 'price'], inplace=True)
     conn.dispose()
 
     os.makedirs('data', exist_ok=True)
