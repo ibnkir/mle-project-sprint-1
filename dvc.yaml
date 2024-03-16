@@ -13,6 +13,7 @@ stages:
       - data/initial_data.csv
       - scripts/fit.py
     params:
+      - index_col
       - target_col
       - one_hot_drop
       - max_iter
@@ -24,6 +25,7 @@ stages:
       - models/fitted_model.pkl
       - scripts/evaluate.py
     params:
+      - index_col
       - target_col
       - n_splits
       - n_jobs
