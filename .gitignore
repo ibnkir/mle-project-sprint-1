@@ -162,6 +162,4 @@ cython_debug/
 
 # Kirill N.
 logs/
-.dvc/
-models/
 config/

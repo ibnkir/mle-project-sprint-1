@@ -11,7 +11,7 @@
 - Файлы с Python-кодом:
 	* dags/churn.py
 	* plugins/steps/messages.py
-	* notebooks/preproc_and_eda.ipynb
+	* notebooks/eda.ipynb
 
 Этап 2. Очистка данных
 - Функция DAG: clean_churn_dataset
@@ -19,7 +19,7 @@
 	* dags/clean_churn.py
 	* plugins/steps/clean.py
 	* plugins/steps/messages.py
-	* notebooks/preproc_and_eda.ipynb
+	* notebooks/eda.ipynb
 
 Этап 3. Создание DVC-пайплайна обучения модели
 - Файлы с Python-кодом:
