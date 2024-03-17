@@ -17,6 +17,7 @@ stages:
       - target_col
       - one_hot_drop
       - alpha
+      - max_iter
     outs:
       - models/fitted_model.pkl
   evaluate_model:

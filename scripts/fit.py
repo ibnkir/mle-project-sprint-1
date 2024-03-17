@@ -35,8 +35,8 @@ def fit_model():
     )
   
     #model = LinearRegression(n_jobs=params['n_jobs'])
-    #model = Lasso(max_iter=params['max_iter'])
-    model = Ridge(alpha=params['alpha'])
+    model = Lasso(alpha=params['alpha'], max_iter=params['max_iter'])
+    #model = Ridge(alpha=params['alpha'])
     
     pipeline = Pipeline(
         [

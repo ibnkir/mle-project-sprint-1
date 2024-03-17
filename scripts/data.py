@@ -34,7 +34,7 @@ def get_data():
 
     # Удаляем лишние колонки
     data.drop(
-        columns=['id', 'build_year', 'longitude', 'latitude', 'is_apartment', 'studio', 'price'], 
+        columns=['id', 'build_year', 'studio', 'price'], 
         inplace=True
     )
     
