@@ -16,8 +16,7 @@ stages:
       - index_col
       - target_col
       - one_hot_drop
-      - alpha
-      - max_iter
+      - n_jobs
     outs:
       - models/fitted_model.pkl
   evaluate_model:
