@@ -33,7 +33,10 @@ def get_data():
     data['building_age'] = (datetime.now().year - data['build_year']).astype('float')
 
     # Удаляем лишние колонки
-    data.drop(columns=['id', 'build_year', 'studio', 'price'], inplace=True)
+    data.drop(
+        columns=['id', 'build_year', 'longitude', 'latitude', 'is_apartment', 'studio', 'price'], 
+        inplace=True
+    )
     
     # Изменяем тип булевских столбцов и building_type_int на object
     bool_cols = data.select_dtypes('bool').columns
