@@ -34,9 +34,9 @@ def fit_model():
         verbose_feature_names_out=False
     )
   
-    model = LinearRegression(n_jobs=params['n_jobs'])
+    #model = LinearRegression(n_jobs=params['n_jobs'])
     #model = Lasso(max_iter=params['max_iter'])
-    #model = Ridge(alpha=params['alpha'])
+    model = Ridge(alpha=params['alpha'])
     
     pipeline = Pipeline(
         [
