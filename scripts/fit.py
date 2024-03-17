@@ -22,7 +22,7 @@ def fit_model():
     is_binary_cat_features = cat_features.nunique() == 2
     binary_cat_features = cat_features[is_binary_cat_features[is_binary_cat_features].index]
     other_cat_features = cat_features[is_binary_cat_features[~is_binary_cat_features].index]
-    num_features = data.select_dtypes(['int', 'float']).drop(columns=params['target_col'])
+    num_features = data.select_dtypes(['float']).drop(columns=params['target_col'])
    
     preprocessor = ColumnTransformer(
         [

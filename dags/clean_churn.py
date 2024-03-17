@@ -47,7 +47,7 @@ def clean_churn_dataset():
             Column('floors_total', Integer),
             Column('has_elevator', Boolean),
             Column('target', Float),
-            UniqueConstraint('flat_id', name='unique_clean_flat_id_constraint')
+            UniqueConstraint('flat_id', name='unique_clean_flat_id_constraint_1')
         )
 
         hook = PostgresHook('destination_db')

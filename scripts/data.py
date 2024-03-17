@@ -29,7 +29,7 @@ def get_data():
     conn = create_connection()
     data = pd.read_sql('select * from clean_flats_churn', conn, index_col=params['index_col'])
     
-    # Вместо build_year добавляем целочисленный признак building_age
+    # Вместо года постройки добавляем возраст здания
     data['building_age'] = datetime.now().year - data['build_year']
 
     # Удаляем лишние колонки
@@ -39,6 +39,10 @@ def get_data():
     bool_cols = data.select_dtypes('bool').columns
     data[bool_cols] = data[bool_cols].astype('object')
     data['building_type_int'] = data['building_type_int'].astype('object')
+
+    # Изменяем тип количественных целых признаков на float
+    num_int_cols = data.select_dtypes('int').columns
+    data[num_int_cols] = data[num_int_cols].astype('float')
     
     os.makedirs('data', exist_ok=True)
     data.to_csv('data/initial_data.csv', index=None)
