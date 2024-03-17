@@ -30,7 +30,7 @@ def get_data():
     data = pd.read_sql('select * from clean_flats_churn', conn, index_col=params['index_col'])
     
     # Вместо года постройки добавляем возраст здания
-    data['building_age'] = datetime.now().year - data['build_year']
+    data['building_age'] = (datetime.now().year - data['build_year']).astype('float')
 
     # Удаляем лишние колонки
     data.drop(columns=['id', 'build_year', 'studio', 'price'], inplace=True)
