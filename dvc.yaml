@@ -16,7 +16,7 @@ stages:
       - index_col
       - target_col
       - one_hot_drop
-      - n_jobs
+      - random_state
     outs:
       - models/fitted_model.pkl
   evaluate_model:

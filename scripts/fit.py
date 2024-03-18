@@ -7,6 +7,8 @@ from sklearn.pipeline import Pipeline
 from category_encoders import CatBoostEncoder
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.linear_model import LinearRegression, Lasso, Ridge
+from catboost import CatBoostRegressor
+from sklearn.ensemble import GradientBoostingRegressor
 import yaml
 import os
 import joblib
@@ -18,11 +20,11 @@ def fit_model():
 
     data = pd.read_csv('data/initial_data.csv')
 
-    cat_features = data.select_dtypes(include=['object'])
+    cat_features = data.select_dtypes(include=['bool', 'object'])
     is_binary_cat_features = cat_features.nunique() == 2
     binary_cat_features = cat_features[is_binary_cat_features[is_binary_cat_features].index]
     other_cat_features = cat_features[is_binary_cat_features[~is_binary_cat_features].index]
-    num_features = data.select_dtypes(['float']).drop(columns=params['target_col'])
+    num_features = data.select_dtypes(['float']) #.drop(columns=params['target_col'])
    
     preprocessor = ColumnTransformer(
         [
@@ -34,9 +36,11 @@ def fit_model():
         verbose_feature_names_out=False
     )
   
-    model = LinearRegression(n_jobs=params['n_jobs'])
+    #model = LinearRegression(n_jobs=params['n_jobs'])
     #model = Lasso(alpha=params['alpha'], max_iter=params['max_iter'])
     #model = Ridge(alpha=params['alpha'])
+    #model = GradientBoostingRegressor(random_state=params['random_state'])
+    model = CatBoostRegressor(random_state=params['random_state'])
     
     pipeline = Pipeline(
         [

@@ -32,15 +32,16 @@ def get_data():
     # Вместо года постройки добавляем возраст здания
     data['building_age'] = (datetime.now().year - data['build_year']).astype('float')
 
+    # Дабавляем альтернативный целевой признак log1p_price = ln(1 + price)
+    #data['log1p_price'] = np.log1p(data['price'])
+
     # Удаляем лишние колонки
     data.drop(
-        columns=['id', 'build_year', 'longitude', 'latitude', 'studio', 'price'], 
+        columns=['id', 'build_year', 'longitude', 'latitude', 'studio'], 
         inplace=True
     )
     
-    # Изменяем тип булевских столбцов и building_type_int на object
-    bool_cols = data.select_dtypes('bool').columns
-    data[bool_cols] = data[bool_cols].astype('object')
+    # Изменяем тип building_type_int на object
     data['building_type_int'] = data['building_type_int'].astype('object')
 
     # Изменяем тип количественных целых признаков на float

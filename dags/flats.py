@@ -1,4 +1,4 @@
-# dags/churn.py
+# dags/flats.py
 
 import pendulum
 from airflow.decorators import dag, task
@@ -13,7 +13,7 @@ from steps.messages import send_telegram_success_message, send_telegram_failure_
     on_success_callback=send_telegram_success_message,
     on_failure_callback=send_telegram_failure_message
 )
-def prepare_churn_dataset():
+def prepare_flats_churn():
     import pandas as pd
     import numpy as np
     from airflow.providers.postgres.hooks.postgres import PostgresHook
@@ -44,8 +44,7 @@ def prepare_churn_dataset():
             Column('ceiling_height', Float),
             Column('flats_count', Integer),
             Column('floors_total', Integer),
-            Column('has_elevator', Boolean),
-            Column('target', Float),
+            Column('has_elevator', Boolean)
             UniqueConstraint('flat_id', name='unique_flat_id_constraint_1')
         )
 
@@ -77,9 +76,6 @@ def prepare_churn_dataset():
         # Удаляем строки с пустыми, отрицательными и нулевыми ценами
         data = data[~(data['price'].isnull() | (data['price'] <= 0))]
         
-        # Дабавляем целевой признак target = ln(1 + price)
-        data['target'] = np.log1p(data['price'])
-
         return data
 
     @task()
@@ -99,4 +95,4 @@ def prepare_churn_dataset():
     transformed_data = transform(data)
     load(transformed_data)
     
-prepare_churn_dataset()
+prepare_flats_churn()

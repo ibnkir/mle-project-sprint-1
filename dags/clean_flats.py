@@ -1,4 +1,4 @@
-# dags/clean_churn.py
+# dags/clean_flats.py
 
 import pendulum
 from airflow.decorators import dag, task
@@ -14,7 +14,7 @@ from steps.messages import send_telegram_success_message, send_telegram_failure_
     on_success_callback=send_telegram_success_message,
     on_failure_callback=send_telegram_failure_message
 )
-def clean_churn_dataset():
+def prepare_clean_flats_churn():
     import pandas as pd
     import numpy as np
     from airflow.providers.postgres.hooks.postgres import PostgresHook
@@ -46,7 +46,6 @@ def clean_churn_dataset():
             Column('flats_count', Integer),
             Column('floors_total', Integer),
             Column('has_elevator', Boolean),
-            Column('target', Float),
             UniqueConstraint('flat_id', name='unique_clean_flat_id_constraint_1')
         )
 
@@ -90,4 +89,4 @@ def clean_churn_dataset():
     transformed_data = transform(data)
     load(transformed_data)
     
-clean_churn_dataset()
+prepare_clean_flats_churn()
