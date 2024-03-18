@@ -24,8 +24,8 @@ stages:
       size: 11062302
     - path: scripts/fit.py
       hash: md5
-      md5: ebacbe5ee777b450a1ac820523b3aca2
-      size: 2054
+      md5: 00ca8c610861daff38f5da050283a70a
+      size: 2076
     params:
       params.yaml:
         index_col: flat_id
@@ -35,15 +35,15 @@ stages:
     outs:
     - path: models/fitted_model.pkl
       hash: md5
-      md5: 0f3186d769653727a6b7f60f1b75238e
-      size: 1094297
+      md5: c2c32452b36d1a717a0b35ae63007cc5
+      size: 1069441
   evaluate_model:
     cmd: python scripts/evaluate.py
     deps:
     - path: models/fitted_model.pkl
       hash: md5
-      md5: 0f3186d769653727a6b7f60f1b75238e
-      size: 1094297
+      md5: c2c32452b36d1a717a0b35ae63007cc5
+      size: 1069441
     - path: scripts/evaluate.py
       hash: md5
       md5: 67a2720c363b9ec90f6806a0a1db61e1
@@ -51,9 +51,7 @@ stages:
     params:
       params.yaml:
         index_col: flat_id
-        metrics:
-        - neg_root_mean_squared_error
-        - neg_mean_absolute_percentage_error
+        metrics: neg_mean_absolute_percentage_error
         n_jobs: -1
         n_splits: 5
         random_state: 42
@@ -62,5 +60,5 @@ stages:
     outs:
     - path: cv_results/cv_res.json
       hash: md5
-      md5: 2a711293908e4140f85e79f0fc47313e
-      size: 143
+      md5: 1a2499d9e63dd18d2c3e821a12e4c327
+      size: 62
