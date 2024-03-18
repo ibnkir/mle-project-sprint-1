@@ -40,7 +40,7 @@ def fit_model():
     #model = Lasso(alpha=params['alpha'], max_iter=params['max_iter'])
     #model = Ridge(alpha=params['alpha'])
     #model = GradientBoostingRegressor(random_state=params['random_state'])
-    model = CatBoostRegressor(random_state=params['random_state'])
+    model = CatBoostRegressor(loss_function='MAPE', random_state=params['random_state'])
     
     pipeline = Pipeline(
         [
