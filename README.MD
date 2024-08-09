@@ -4,35 +4,35 @@
 ## Выполнил: Кирилл Н., ibnkir@yandex.ru
 
 ### Цель проекта 
-Решить задачу регрессии по предсказанию цены на квартиры с помощью ML-пайплайнов.
+Решить задачу предсказания цены на квартиры с помощью ML-пайплайнов.
 
 ### Этап 1. Сбор данных
-С помощью Airflow две таблицы были собраны в единый датасет с характеристиками квартир.<br>
-Результаты:
+С помощью Airflow собрать две таблицы с характеристиками квартир в единый датасет и сохранить его в БД.<br>
+Результаты работы:
 - Функция DAG: prepare_flats_churn
 - Файлы с Python-кодом:
-	* dags/flats.py
-	* plugins/steps/messages.py
-	* notebooks/eda.ipynb
+	* `dags/flats.py`
+	* `plugins/steps/messages.py`
+	* `notebooks/eda.ipynb`
 
 ### Этап 2. Очистка данных
-Необходимо создать DAG для поиска и удаления дубликатов, пропусков и выбросов.<br>
-Результаты:
+Создать DAG для поиска и удаления дубликатов, пропусков и выбросов в данных.<br>
+Результаты работы:
 - Функция DAG: prepare_clean_flats_churn
 - Файлы с Python-кодом:
-	* dags/clean_flats.py
-	* plugins/steps/clean.py
-	* plugins/steps/messages.py
-	* notebooks/eda.ipynb
+	* `dags/clean_flats.py`
+	* `plugins/steps/clean.py`
+	* `plugins/steps/messages.py`
+	* `notebooks/eda.ipynb`
 
 ### Этап 3. Создание DVC-пайплайна обучения модели
-Необходимо обучить и оценить базовую модель с помощью DVC-папйплайна, после чего сохраните обученную модель в облачном хранилище S3.<br>
-Результаты:
+Обучить и оценить базовую модель на выбранной метрике с помощью DVC-пайплайна, после чего сохранить обученную модель в облачном хранилище S3.<br>
+Результаты работы:
 - Файлы с Python-кодом:
-	* scripts/data.py
-	* scripts/fit.py
-	* scripts/evaluate.py
+	* `scripts/data.py`
+	* `scripts/fit.py`
+	* `scripts/evaluate.py`
 - Файлы с конфигурацией DVС-пайплайна:
-	* dvc.yaml
-	* params.yaml
-	* dvc.lock	
+	* `dvc.yaml`
+	* `params.yaml`
+	* `dvc.lock`
